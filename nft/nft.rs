@@ -88,8 +88,9 @@ pub mod subscription_nft{
         spl_token_2022::instruction::mint_to(
              Token2022::id(),
              ctx.accounts.mint.key(),
+             ctx.accounts.useraccount.key(),
              ctx.accounts.subscription.key(),
-             ctx.accounts.useraccount.key()
+             [],
               1,
         ).invoke_signed(&[ctx.accounts.mint.to_account_info(),ctx.accounts.subscription.to_account_info(),ctx.accounts.useraccount.to_account_info()],&[seeds]);
         let subscription=&mut ctx.accounts.subcription;
