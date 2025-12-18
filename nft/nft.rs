@@ -7,12 +7,19 @@ use anchor_spl::{
         initialize_mint2, MintTo, Token2022,
     },
     token_interface::{
-        non_transferable_mint_initialize, NonTransferableMintInitialize,
-        default_account_state_initialize, DefaultAccountStateInitialize,
-        AccountState, TokenInterface,
+        Mint,
+        TokenAccount,
+        TokenInterface,
+        AccountState,
+        non_transferable_mint_initialize,
+        default_account_state_initialize,
+        default_account_state_update,
     },
 };
-
+use spl_token_2022::extension::{
+    ExtensionType,
+    metadata_pointer::instruction as metadata_pointer_ix,
+    };
 
 declare_id!("BuPnkiVCYGdbpiFH3aE9H5BMTvD3qFGGziwvssBP8krE");
 
@@ -122,6 +129,9 @@ pub mod subscription_nft{
                 token_program_id:ctx.accounts.token_program.to_account_info(),
                 mint:ctx.accounts.mint.key(),
             );
+
+
+            
             let cpi_default=CpiContext::new(ctx.accounts.token_program.to_account_info(),account_default);
             default_account_state_initialize(cpi_default,AccountState::Frozen);
         }
